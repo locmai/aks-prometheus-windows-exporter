@@ -29,7 +29,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build ./nginx --file Dockerfile --tag ghcr.io/${{ github.repository }}/windows-exporter-nginx:0.0.1
+        run: docker build ./nginx --file ./nginx/Dockerfile --tag ghcr.io/${{ github.repository }}/windows-exporter-nginx:0.0.1
       - name: Login to Registry
         run: docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Publish to Registry
