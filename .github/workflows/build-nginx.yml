@@ -31,6 +31,9 @@ jobs:
       - name: Build the Docker image
         run: docker build ./nginx --file ./nginx/Dockerfile --tag ghcr.io/${{ github.repository }}/windows-exporter-nginx:0.0.1
       - name: Login to Registry
-        run: docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login ghcr.io -u "::add-mask::%DOCKER_USERNAME%" -p "::add-mask::%DOCKER_PASSWORD%"
       - name: Publish to Registry
         run: docker push ghcr.io/${{ github.repository }}/windows-exporter-nginx:0.0.1
